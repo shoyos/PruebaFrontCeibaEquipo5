@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddLibraryComponent } from '../add-library/add-library.component';
+import { ApiService } from '../providers/api.service';
+import Swal from 'sweetalert2'
+import { Book } from '../models/book.model';
+
 
 @Component({
   selector: 'app-library-crud',
@@ -13,29 +17,43 @@ export class LibraryCrudComponent implements OnInit {
 
   rows = [
     {
-      "isbn" : "1",
-      "name" : "Test1",
-      "numberBooks" : "21",
-      "numberLoans" : "12",
+      "isbn": "1",
+      "name": "Test1",
+      "numberBooks": "21",
+      "numberLoans": "12",
     },
     {
-      "isbn" : "1",
-      "name" : "Test1",
-      "numberBooks" : "21",
-      "numberLoans" : "12",
+      "isbn": "1",
+      "name": "Test1",
+      "numberBooks": "21",
+      "numberLoans": "12",
     }
 
   ]
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private apiService: ApiService) { }
 
   ngOnInit(): void {
+    this.getBooks();
   }
 
-  
-  addBook(){
+  getBooks() {
+    let path = 'book/books'
+    this.apiService.apigetModel(path).subscribe(result => {
+      this.rows = result;
+    }, error => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Se ha presentado un error!',
+      })
+    })
+  }
+
+
+  addBook() {
     try {
-      
+
       const dialogRef = this.dialog.open(AddLibraryComponent, {
         width: '600px',
         height: '500px',
@@ -49,39 +67,47 @@ export class LibraryCrudComponent implements OnInit {
     } catch (error) {
       console.log("Error en addBook", error);
     }
-    /*
+
+  }
+
+
+  loanBooks(isbn:string,name:string) {
+    let path = 'loan/'+isbn+name;
+    console.log(path);
+    this.apiService.apiDeleteModel(path).subscribe(result => {
+
+    }, error => {
+
+    }
+    )
+  }
+
+  deleteBook(isbn:string) {
+    let path = '';
+    this.apiService.apiDeleteModel(path).subscribe(result => {
+
+    }, error => {
+
+    }
+    )
+  }
+
+
+  captureName(isbn:string) {
     Swal.fire({
-      title: 'Submit your Github username',
-      input: ['text',"text"],
+      title: 'Nombre de la persona quien presta el libto',
+      input: 'text',
       inputAttributes: {
         autocapitalize: 'off'
       },
       showCancelButton: true,
-      confirmButtonText: 'Look up',
+      confirmButtonText: 'Confirmar',
       showLoaderOnConfirm: true,
-      preConfirm: (login) => {
-        return fetch(`//api.github.com/users/${login}`)
-          .then(response => {
-            if (!response.ok) {
-              throw new Error(response.statusText)
-            }
-            return response.json()
-          })
-          .catch(error => {
-            Swal.showValidationMessage(
-              `Request failed: ${error}`
-            )
-          })
+      preConfirm: (name) => {
+        this.loanBooks(isbn,name);
       },
       allowOutsideClick: () => !Swal.isLoading()
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire({
-          title: `${result.value.login}'s avatar`,
-          imageUrl: result.value.avatar_url
-        })
-      }
-    })*/
+    })
   }
 
 

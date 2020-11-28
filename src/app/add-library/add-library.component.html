@@ -3,42 +3,42 @@
         <h1 mat-dialog-title>Agregar Libro</h1>
     </mat-card-header>
     <mat-card-content>
-      
-        <form [formGroup] ="form" >
+
+        <form [formGroup]="form">
             <div class="row">
                 <div class="col-md-6">
                     <mat-form-field>
-                        <mat-label>isbn:</mat-label>
+                        <mat-label>Isbn:</mat-label>
                         <input matInput formControlName="isbn">
                     </mat-form-field>
                 </div>
                 <div class="col-md-6">
                     <mat-form-field>
-                    <mat-label>nombre :</mat-label>
-                        <input matInput formControlName="nombre">
+                        <mat-label>Nombre :</mat-label>
+                        <input matInput formControlName="name">
                     </mat-form-field>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
-                        <mat-form-field>
-                        <mat-label>existencias: </mat-label>
-                            <input type="number" matInput formControlName="existencias">
-                        </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Existencias: </mat-label>
+                        <input type="number" matInput formControlName="numberBooks">
+                    </mat-form-field>
                 </div>
             </div>
-              
+
             <mat-divider></mat-divider>
-            <div class="row">
-                <div class="col-md-4"></div>
-                <div class="col-md-4"></div>
-                <div class="col-md-4" >
-                    <button mat-raised-button color="primary" (click)="guardarFormulario()" type="submit" [disabled]="!form.valid">Guardar</button>
-                    <button mat-raised-button color="primary" (click)="cerrar()" type="submit" >Guardar</button>
-  
-                  </div>
+            <div class="row">         
+                
+                    <div class="form-group">
+                        <button type="button" class="btn btn-success" (click)="saveBook()" type="submit"
+                            [disabled]="!form.valid">Guardar</button>
+                        <button type="button" class="btn btn-danger ml-1" (click)="close()" type="submit">Cancelar</button>
+                    </div>
+             
             </div>
         </form>
-      
+
     </mat-card-content>
-  </mat-card>
+</mat-card>

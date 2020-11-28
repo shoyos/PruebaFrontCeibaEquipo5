@@ -12,6 +12,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { ApiService } from './providers/api.service';
 
 
 @NgModule({
@@ -30,9 +32,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatInputModule,
     MatDividerModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

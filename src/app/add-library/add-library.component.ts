@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Libro } from '../models/libro.model';
+import { Book } from '../models/book.model';
+import { ApiService } from '../providers/api.service';
+import Swal from 'sweetalert2'
+
 
 @Component({
   selector: 'app-add-library',
@@ -11,63 +14,57 @@ import { Libro } from '../models/libro.model';
 export class AddLibraryComponent implements OnInit {
 
   form : FormGroup;
-  libro: Libro;
+  book: Book;
 
-  constructor( public dialogRef: MatDialogRef<Libro>,
+  constructor( public dialogRef: MatDialogRef<Book>,private apiService:ApiService,
     private formBuilder: FormBuilder
     ) { 
 
-    this.form = new FormGroup({
-      isbn: new FormControl('',Validators.required),
-      nombre: new FormControl('',Validators.required),
-      existencias: new FormControl('',Validators.required)
-    });
+      this.form = this.formBuilder.group({
+        isbn: new FormControl('',Validators.required),
+        name: new FormControl('',Validators.required),
+        numberBooks: new FormControl('',Validators.required)
+      });
 
-    this.libro = {} as Libro;
+    this.book = {} as Book;
 
   }
 
   ngOnInit(): void {
+
   }
 
-  guardarFormulario(){
-    try {
-      
-      /*
-      this.mapearFormToModel();
-      let data = this.libro;
-      let response = this.infoService.guardarInformacion(data).subscribe(
-        res => {
-          if (res.datos == 'OK') {
-            console.log("INFORMACION ALMACENADA CON EXITO")
-            this.dialogRef.close();
-          } else{ console.log("Error al guardar informacion") }
-        }, err => {
-          console.log("Error al cargar servicio guardarInformacion");
+  saveBook(){      
+      this.mapToModel();
+      let path='book'
+      this.apiService.apiPostModel(path,this.book).subscribe(result=>{
+              this.close();
+             
+
+      },error=>{
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Se ha presentado un error!',
         })
-        response = null;
-        */
-    } catch (error) {
-      console.log("Error en enviarFormulario", error)
-    }
+      }
+      )
+   
+ 
   }
 
-  mapearFormToModel(){
-    try {
-      
-      debugger
-      /*
-      this.libro.isbn = this.form.get("isbn").value;
-      this.libro.nombre = this.form.get("nombre").value;
-      this.libro.exitencias = this.form.get("exitencias").value;
-      */
+  mapToModel(){
+    try { 
+      this.book.isbn = this.form.get("isbn")?.value;
+      this.book.name = this.form.get("name")?.value;
+      this.book.numberBooks = this.form.get("numberBooks")?.value; 
       
     } catch (error) {
       console.log("Error en mapearFormToModel", error)
     }
   }
 
-  cerrar(): void {
+  close(): void {
     this.dialogRef.close();
   }
 
