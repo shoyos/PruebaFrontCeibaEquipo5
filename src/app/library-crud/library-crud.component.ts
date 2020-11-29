@@ -4,6 +4,8 @@ import { AddLibraryComponent } from '../add-library/add-library.component';
 import { ApiService } from '../providers/api.service';
 import Swal from 'sweetalert2'
 import { Book } from '../models/book.model';
+import { Loan } from '../models/loand.model';
+import { LoandBookComponent } from '../loand-book/loand-book.component';
 
 
 @Component({
@@ -17,21 +19,21 @@ export class LibraryCrudComponent implements OnInit {
 
   rows = [
     {
-      "isbn": "1",
-      "name": "Test1",
-      "numberBooks": "21",
-      "numberLoans": "12",
-    },
-    {
-      "isbn": "1",
-      "name": "Test1",
-      "numberBooks": "21",
-      "numberLoans": "12",
+      "isbn": "",
+      "name": "",
+      "numberBooks": "",
+      "numberLoans": "",
     }
 
-  ]
+  ];
+  loan: Loan
+  book: Book
 
-  constructor(public dialog: MatDialog, private apiService: ApiService) { }
+  constructor(public dialog: MatDialog, private apiService: ApiService) {
+    this.loan = {} as Loan;
+    this.book = {} as Book;
+
+  }
 
   ngOnInit(): void {
     this.getBooks();
@@ -70,22 +72,33 @@ export class LibraryCrudComponent implements OnInit {
   }
 
 
-  loanBooks(isbn:string,name:string) {
-    let path = 'loan/'+isbn+name;
-    console.log(path);
-    this.apiService.apiDeleteModel(path).subscribe(result => {
+  loanBooks(isbn: string) {
 
-    }, error => {
+    try {
 
+      const dialogRef = this.dialog.open(LoandBookComponent, {
+        width: '600px',
+        height: '500px',
+      });
+      dialogRef.componentInstance.isbn = isbn;
+      dialogRef.afterClosed().subscribe(result => {
+        this.getBooks();
+        //this.encuesta.infoPersonal = result;
+      });
+    } catch (error) {
+      console.log("Error en addBook", error);
     }
-    )
+
+
+
   }
 
-  deleteBook(isbn:string) {
-    let path = 'book/remove/'+isbn;
+  deleteBook(isbn: string) {
+
+    let path = 'book/remove/' + isbn;
     this.apiService.apiDeleteModel(path).subscribe(result => {
-          console.log(result);
-           Swal.fire({
+      console.log(result);
+      Swal.fire({
         icon: 'info',
         title: 'Información',
         text: result.message,
@@ -105,22 +118,7 @@ export class LibraryCrudComponent implements OnInit {
   }
 
 
-  captureName(isbn:string) {
-    Swal.fire({
-      title: 'Nombre de la persona quien presta el libto',
-      input: 'text',
-      inputAttributes: {
-        autocapitalize: 'off'
-      },
-      showCancelButton: true,
-      confirmButtonText: 'Confirmar',
-      showLoaderOnConfirm: true,
-      preConfirm: (name) => {
-        this.loanBooks(isbn,name);
-      },
-      allowOutsideClick: () => !Swal.isLoading()
-    })
-  }
+
 
 
 }

@@ -14,13 +14,15 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiService } from './providers/api.service';
+import { LoandBookComponent } from './loand-book/loand-book.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LibraryCrudComponent,
-    AddLibraryComponent
+    AddLibraryComponent,
+    LoandBookComponent
   ],
   imports: [
     BrowserModule,
