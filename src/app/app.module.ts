@@ -16,13 +16,15 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ApiService } from './providers/api.service';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { LoandBookComponent } from './loand-book/loand-book.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LibraryCrudComponent,
-    AddLibraryComponent
+    AddLibraryComponent,
+    LoandBookComponent
   ],
   imports: [
     BrowserModule,
