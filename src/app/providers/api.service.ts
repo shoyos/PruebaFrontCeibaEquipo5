@@ -10,10 +10,10 @@ export class ApiService {
   private serverURL = environment.serverUrl;
  
  private  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',     
-    })
-  };
+  headers: { 'Content-Type': 'application/json' },
+  credentials: 'include'
+
+};
   constructor(private http: HttpClient) { }
 
 

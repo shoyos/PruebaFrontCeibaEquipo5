@@ -60,8 +60,7 @@ export class LibraryCrudComponent implements OnInit {
       });
 
       dialogRef.afterClosed().subscribe(result => {
-        debugger
-        console.log('The dialog was closed');
+        this.getBooks();
         //this.encuesta.infoPersonal = result;
       });
     } catch (error) {
@@ -83,11 +82,24 @@ export class LibraryCrudComponent implements OnInit {
   }
 
   deleteBook(isbn:string) {
-    let path = '';
+    let path = 'book/remove/'+isbn;
     this.apiService.apiDeleteModel(path).subscribe(result => {
+          console.log(result);
+           Swal.fire({
+        icon: 'info',
+        title: 'Información',
+        text: result.message,
+      })
+      this.getBooks();
 
     }, error => {
-
+      console.log(error);
+      Swal.fire({
+        icon: 'info',
+        title: 'Información',
+        text: error.error.text,
+      })
+      this.getBooks();
     }
     )
   }

@@ -36,18 +36,37 @@ export class AddLibraryComponent implements OnInit {
 
   saveBook(){      
       this.mapToModel();
-      let path='book'
+      let path='book/createBook'
       this.apiService.apiPostModel(path,this.book).subscribe(result=>{
+        console.log(result);
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'El libro se guardo correctamente',
+          showConfirmButton: false,
+          timer: 1500
+        })
               this.close();
              
 
       },error=>{
+        if(error.status===200){
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'El libro se guardo correctamente',
+            showConfirmButton: false,
+            timer: 1500
+          })
+                this.close();  
+        }else{
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
           text: 'Se ha presentado un error!',
         })
       }
+    }
       )
    
  
