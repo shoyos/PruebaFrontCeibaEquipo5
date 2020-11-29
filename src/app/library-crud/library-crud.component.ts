@@ -4,6 +4,7 @@ import { AddLibraryComponent } from '../add-library/add-library.component';
 import { ApiService } from '../providers/api.service';
 import Swal from 'sweetalert2'
 import { Book } from '../models/book.model';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -31,10 +32,24 @@ export class LibraryCrudComponent implements OnInit {
 
   ]
 
-  constructor(public dialog: MatDialog, private apiService: ApiService) { }
+  constructor(public dialog: MatDialog, private apiService: ApiService,private translate: TranslateService) { 
+    this.translate.use('es');
+  }
 
   ngOnInit(): void {
     this.getBooks();
+  }
+
+  // Se cambia el idioma a Español
+  changeLanguageToSpanish(): void {
+    this.translate.use('es');
+    console.log('Idioma cambiado al Español');
+  }
+
+  // Se cambia el idioma a Inglés
+  changeLanguageToEnglish(): void {
+    this.translate.use('en');
+    console.log('Idioma cambiado al Inglés');
   }
 
   getBooks() {

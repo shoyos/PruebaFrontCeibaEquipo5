@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'labceiba';
+
+  constructor(translate: TranslateService){
+  translate.setDefaultLang('es');
+  translate.use('es');
+  }
+
+  
 }

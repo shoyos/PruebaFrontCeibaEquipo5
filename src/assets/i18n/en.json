@@ -1,0 +1,12 @@
+{
+    "main": {
+        "language": "Language",
+        "spanish": "Spanish",
+        "english": "English",
+        "add_book": "Add Book",
+        "delete": "Delete",
+        "loan": "Loan",
+        "ceibaLab": "Ceiba Lab"
+
+    }
+}

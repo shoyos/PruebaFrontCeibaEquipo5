@@ -1,0 +1,11 @@
+{
+    "main": {
+        "language": "Idioma",
+        "spanish": "Español",
+        "english": "Inglés",
+        "add_book": "Agregar libro",
+        "delete": "Eliminar",
+        "loan": "Prestar",
+        "ceibaLab": "Laboratorio Ceiba"
+    }
+}
