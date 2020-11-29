@@ -24,7 +24,6 @@
           <tr>
             <th scope="col" *ngFor="let column of headers">{{column}}</th>
 
-<<<<<<< HEAD
           </tr>
         </thead>
         <tbody>
@@ -36,21 +35,9 @@
             <td><button type="button" class="btn btn-danger" (click)="deleteBook(row.isbn)">
               {{ 'main.delete' | translate }}
             </button>
-              <button type="button" class="btn btn-success" (click)="captureName(row.isbn)">
+              <button type="button" class="btn btn-success" (click)="loanBooks(row.isbn)">
                 {{ 'main.loan' | translate }}
               </button>
-=======
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let row of rows">
-          <th scope="row">{{row.isbn}}</th>
-          <td>{{row.name}}</td>
-          <td>{{row.numberBooks}}</td>
-          <td>{{row.numberLoans}}</td>
-          <td><button type="button" class="btn btn-danger" (click)="deleteBook(row.isbn)">Eliminar</button>
-            <button type="button" class="btn btn-success" (click)="loanBooks(row.isbn)">Prestar</button>
->>>>>>> juanG
 
             </td>
           </tr>

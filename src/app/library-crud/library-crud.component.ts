@@ -30,7 +30,9 @@ export class LibraryCrudComponent implements OnInit {
   loan: Loan
   book: Book
 
-  constructor(public dialog: MatDialog, private apiService: ApiService,private translate: TranslateService) {
+  constructor(public dialog: MatDialog,
+     private apiService: ApiService,
+    private translate: TranslateService) {
     this.loan = {} as Loan;
     this.book = {} as Book;
     this.translate.use('es');
